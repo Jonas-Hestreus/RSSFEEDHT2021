@@ -3,6 +3,7 @@ using Models;
 using System;
 using System.Collections.Generic;
 using DAL;
+using System.Windows.Forms;
 
 namespace BL.Controllers
 {
@@ -24,13 +25,28 @@ namespace BL.Controllers
 
 
 
-        public void Createfeed(string pName, string pUrl, string pCategory, string fReq)
+        public void Createfeed(string pName, string pUrl, string fReq, string pCategory)
         {
-            if (validator.TextEmpty(pUrl))
+            if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
             {
-                List<Episode> episodes = feedRepository.getEpisodes(pUrl);
-                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
-                feedRepository.Create(newFeed);
+                if (validator.TextEmpty(pCategory))
+                {
+                    if (validator.TextEmpty(fReq))
+                    {
+                        List<Episode> episodes = feedRepository.getEpisodes(pUrl);
+                        Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                        feedRepository.Create(newFeed);
+                    }else{
+                        MessageBox.Show("Du måste välja i en frekvens!");
+                         }
+                 }else
+                {
+                    MessageBox.Show("Du måste välja i en kategori!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du måste fylla i en gitlig url");
             }
         }
 

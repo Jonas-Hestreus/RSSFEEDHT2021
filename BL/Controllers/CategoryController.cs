@@ -45,6 +45,7 @@ namespace BL.Controllers
             {
                 int i = categoryRepository.GetIndexOfName(category);
                 categoryRepository.Delete(i);
+                MessageBox.Show(category + " har blivit raderad");
             }
             else
             {
