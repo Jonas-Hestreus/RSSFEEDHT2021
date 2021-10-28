@@ -152,6 +152,7 @@ namespace PL
             this.deleteBTN.TabIndex = 9;
             this.deleteBTN.Text = "Ta bort";
             this.deleteBTN.UseVisualStyleBackColor = true;
+            this.deleteBTN.Click += new System.EventHandler(this.deleteBTN_Click);
             // 
             // label5
             // 
@@ -315,6 +316,8 @@ namespace PL
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -326,6 +329,7 @@ namespace PL
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(876, 250);

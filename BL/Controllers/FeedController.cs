@@ -65,6 +65,15 @@ namespace BL.Controllers
             List<Feed> feeds = getAllFeeds();
             episodes = feedRepository.getEpisodes(feeds[index].Url);
             return episodes;
+
         }
+
+        public void deleteFeed(string name)
+        {
+            int i = feedRepository.GetIndexOfName(name);
+            feedRepository.Delete(i);
+        }
+
     }
 }
+

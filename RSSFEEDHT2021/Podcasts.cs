@@ -87,9 +87,11 @@ namespace PL
             string frq = "10";
             string category = CategoryCombo.GetItemText(CategoryCombo.SelectedItem);
             feedController.Createfeed(name, url, frq, category);
+            FillDataGrid();
+
         }
 
-        
+
         private void fillCategory()
         {
             categoryBox.Items.Clear();
@@ -207,6 +209,15 @@ namespace PL
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void deleteBTN_Click(object sender, EventArgs e)
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow selctedrow = dataGridView1.Rows[index];
+            string feedName = selctedrow.Cells[1].Value.ToString();
+            feedController.deleteFeed(feedName);
+            FillDataGrid();
         }
     }
 }
