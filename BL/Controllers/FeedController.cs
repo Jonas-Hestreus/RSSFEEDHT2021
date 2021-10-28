@@ -25,7 +25,7 @@ namespace BL.Controllers
 
 
 
-        public void Createfeed(string pName, string pUrl, string fReq, string pCategory)
+        public async void Createfeed(string pName, string pUrl, string fReq, string pCategory)
         {
             if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
             {
@@ -33,7 +33,7 @@ namespace BL.Controllers
                 {
                     if (validator.TextEmpty(fReq))
                     {
-                        List<Episode> episodes = feedRepository.getEpisodes(pUrl);
+                        List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
                         Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
                         feedRepository.Create(newFeed);
                     }else{
@@ -49,7 +49,7 @@ namespace BL.Controllers
                 MessageBox.Show("Du måste fylla i en gitlig url");
             }
         }
-
+        
         public void deleteFeedasedOnCategory(string category)
         {
             List<Feed> listFeed = feedRepository.GetAll();
@@ -60,11 +60,9 @@ namespace BL.Controllers
 
         public List<Episode> getEpisodes(string name)
         {
-            List<Episode> episodes;
             int index = feedRepository.GetIndexOfName(name);
             List<Feed> feeds = getAllFeeds();
-            episodes = feedRepository.getEpisodes(feeds[index].Url);
-            return episodes;
+            return feeds[index].Episodes;
 
         }
 

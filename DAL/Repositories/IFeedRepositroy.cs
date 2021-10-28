@@ -8,7 +8,7 @@ namespace DAL.Repositories
 {
     public interface IFeedRepositroy<T> : IRepository<T> where T : Feed
     {
-        List<Episode> getEpisodes(string url);
+        Task <List<Episode>> getEpisodes(string url);
         int GetIndexOfCategory(string name);
     }
 

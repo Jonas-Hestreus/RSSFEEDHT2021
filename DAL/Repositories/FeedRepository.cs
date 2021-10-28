@@ -49,10 +49,10 @@ namespace DAL.Repositories
             
         }
 
-        public List<Episode> getEpisodes(string url)
+        public async Task <List<Episode>> getEpisodes(string url)
         {
             XmlReader rssReader = XmlReader.Create(url);
-            SyndicationFeed rssFeed = SyndicationFeed.Load(rssReader);
+            SyndicationFeed rssFeed = await Task.Run(() => SyndicationFeed.Load(rssReader));
             List<Episode> allEpisodes = new List<Episode>();
             foreach (var item in rssFeed.Items)
             {

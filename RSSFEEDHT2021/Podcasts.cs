@@ -108,6 +108,7 @@ namespace PL
 
         private void FillDataGrid()
         {
+            dataGridView1.Rows.Clear();
             List<Feed> allFeeds = feedController.getAllFeeds();
             foreach (var feed in allFeeds)
             {
@@ -213,11 +214,19 @@ namespace PL
 
         private void deleteBTN_Click(object sender, EventArgs e)
         {
-            int index = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewRow selctedrow = dataGridView1.Rows[index];
-            string feedName = selctedrow.Cells[1].Value.ToString();
-            feedController.deleteFeed(feedName);
-            FillDataGrid();
+            try
+            {
+                int index = dataGridView1.CurrentCell.RowIndex;
+                DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                string feedName = selctedrow.Cells[1].Value.ToString();
+                feedController.deleteFeed(feedName);
+                FillDataGrid();
+            }
+
+            catch (Exception)
+            {
+                Console.WriteLine("error");
+            }
         }
     }
 }
