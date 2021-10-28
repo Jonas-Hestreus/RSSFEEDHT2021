@@ -79,7 +79,7 @@ namespace DAL.Repositories
 
         public int GetIndexOfName(string name)
         {
-            throw new NotImplementedException();
+            return GetAll().FindIndex(e => e.Name.Equals(name));
         }
 
         public void SaveChanges()

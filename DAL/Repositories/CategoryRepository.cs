@@ -45,17 +45,8 @@ namespace DAL.Repositories
         }
         public int GetIndexOfName(string categoryName)
         {
-            int i = 0;
-            foreach (var category in listOfCategory)
-                
-            {
-                if (categoryName.Equals(category.CategoryName))
-                {
-                    break;
-                }
-                i++;
-            }
-            return i;
+            return GetAll().FindIndex(e => e.CategoryName.Equals(categoryName));
+
         }
         public void Update(int i, Category updatedCategory)
         {

@@ -57,5 +57,14 @@ namespace BL.Controllers
             feedRepository.Delete(i);
 
         }
+
+        public List<Episode> getEpisodes(string name)
+        {
+            List<Episode> episodes;
+            int index = feedRepository.GetIndexOfName(name);
+            List<Feed> feeds = getAllFeeds();
+            episodes = feedRepository.getEpisodes(feeds[index].Url);
+            return episodes;
+        }
     }
 }

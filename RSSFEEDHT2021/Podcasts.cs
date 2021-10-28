@@ -57,7 +57,6 @@ namespace PL
             string categoryToDelete = categoryBox.GetItemText(categoryBox.SelectedItem);
             categoryController.deleteCategory(categoryToDelete);
             fillCategory();
-            Filltest();
             fillCategory();
             
 
@@ -82,13 +81,12 @@ namespace PL
 
         private void saveBTN_Click(object sender, EventArgs e)
         {
+            string name = nameTxt.Text;
             string url = urlTXT.Text;
             // string frq = FreqCombo.GetItemText(FreqCombo.SelectedItem);
             string frq = "10";
             string category = CategoryCombo.GetItemText(CategoryCombo.SelectedItem);
-            string name = "First feed";
             feedController.Createfeed(name, url, frq, category);
-            Filltest();
         }
 
         
@@ -111,18 +109,21 @@ namespace PL
             List<Feed> allFeeds = feedController.getAllFeeds();
             foreach (var feed in allFeeds)
             {
-                string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Url, feed.Category };
+                string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Category };
                 dataGridView1.Rows.Add(rowOfFeeds);
             }
 
-            string[] row0 = { "11/22/1968", "29", "Revolution 9",
-            "Beatles", "The Beatles [White Album]" };
-            dataGridView1.Rows.Add(row0);
+
         }
         private void FillEpisodeList(string url)
         {
             episodeBox.Items.Clear();
             List<Episode> episodes = feedController.getEpisodes(url);
+            
+            foreach (var epuisode in episodes)
+            {
+                episodeBox.Items.Add(epuisode.Name);
+            }
         }
 
         private void ctgDeleteBTN_Click(object sender, EventArgs e)
@@ -143,9 +144,8 @@ namespace PL
         {
             int index = e.RowIndex;
             DataGridViewRow selctedrow = dataGridView1.Rows[index];
-            string url = selctedrow.Cells[3].Value.ToString();
-            FillEpisodeList(url);
-
+            string feedName = selctedrow.Cells[1].Value.ToString();
+            FillEpisodeList(feedName);
         }
 
         private void NameLBL_Click(object sender, EventArgs e)
@@ -165,7 +165,13 @@ namespace PL
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            {
+                int index = e.RowIndex;
+                DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                string feedName = selctedrow.Cells[1].Value.ToString();
+                FillEpisodeList(feedName);
 
+            }
         }
 
         private void ctgSaveBTN_Click(object sender, EventArgs e)
@@ -191,6 +197,16 @@ namespace PL
                 fillCategory();
             }
                 
+        }
+
+        private void Podcasts_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
