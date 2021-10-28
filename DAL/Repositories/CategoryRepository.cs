@@ -13,9 +13,6 @@ namespace DAL.Repositories
         {
             listOfCategory = new List<Category>();
             dataManager = new DatamanagerCategory();
-            Category dummyCate = new Category("DummyText");
-            Create(dummyCate);
-
             listOfCategory = GetAll();
         }
 

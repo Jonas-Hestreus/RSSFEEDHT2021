@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Collections;
 using BL.Controllers;
 using Models;
+using Microsoft.VisualBasic;
+
 
 namespace PL
 {
@@ -146,9 +148,12 @@ namespace PL
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int index = e.RowIndex;
-            DataGridViewRow selctedrow = dataGridView1.Rows[index];
-            string feedName = selctedrow.Cells[1].Value.ToString();
-            FillEpisodeList(feedName);
+            if (index >= 0)
+            {
+                DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                string feedName = selctedrow.Cells[1].Value.ToString();
+                FillEpisodeList(feedName);
+            }
         }
 
         private void NameLBL_Click(object sender, EventArgs e)
@@ -170,10 +175,12 @@ namespace PL
         {
             {
                 int index = e.RowIndex;
-                DataGridViewRow selctedrow = dataGridView1.Rows[index];
-                string feedName = selctedrow.Cells[1].Value.ToString();
-                FillEpisodeList(feedName);
-
+                if (index >= 0)
+                {
+                    DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                    string feedName = selctedrow.Cells[1].Value.ToString();
+                    FillEpisodeList(feedName);
+                }
             }
         }
 
@@ -227,6 +234,17 @@ namespace PL
             {
                 Console.WriteLine("error");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int index = dataGridView1.CurrentCell.RowIndex;
+            DataGridViewRow selctedrow = dataGridView1.Rows[index];
+            string name = selctedrow.Cells[1].Value.ToString();
+            string frq = selctedrow.Cells[2].Value.ToString();
+            string category = selctedrow.Cells[3].Value.ToString();
+            Form form1 = new Form1(name, frq, category);
+            form1.Show();
         }
     }
 }
