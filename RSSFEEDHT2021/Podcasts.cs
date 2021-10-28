@@ -63,19 +63,7 @@ namespace PL
 
         }
 
-        private void FillDataGrid()
-        {
-            List<Feed> allFeeds = feedController.getAllFeeds();
-                foreach(var feed in allFeeds)
-            {
-                    string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Url, feed.Category };
-                    dataGridView1.Rows.Add(rowOfFeeds);
-            }
-
-            string[] row0 = { "11/22/1968", "29", "Revolution 9",
-            "Beatles", "The Beatles [White Album]" };
-            dataGridView1.Rows.Add(row0);
-        }
+      
 
         private void categoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -101,21 +89,9 @@ namespace PL
             string name = "First feed";
             feedController.Createfeed(name, url, frq, category);
             Filltest();
-
-           
-
-
         }
 
-        private void Filltest()
-        {
-            episodeBox.Items.Clear();
-            List<Feed> feedlist = feedController.getAllFeeds();
-            foreach (var item in feedlist)
-            {
-                episodeBox.Items.Add(item.Url);
-            }
-        }
+        
         private void fillCategory()
         {
             categoryBox.Items.Clear();
@@ -130,6 +106,25 @@ namespace PL
             }
         }
 
+        private void FillDataGrid()
+        {
+            List<Feed> allFeeds = feedController.getAllFeeds();
+            foreach (var feed in allFeeds)
+            {
+                string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Url, feed.Category };
+                dataGridView1.Rows.Add(rowOfFeeds);
+            }
+
+            string[] row0 = { "11/22/1968", "29", "Revolution 9",
+            "Beatles", "The Beatles [White Album]" };
+            dataGridView1.Rows.Add(row0);
+        }
+        private void FillEpisodeList(string url)
+        {
+            episodeBox.Items.Clear();
+            List<Episode> episodes = feedController.getEpisodes(url);
+        }
+
         private void ctgDeleteBTN_Click(object sender, EventArgs e)
         {
          
@@ -141,8 +136,16 @@ namespace PL
             categoryController.deleteCategory(categoryToDelete);
             feedController.deleteFeedasedOnCategory(categoryToDelete);
             fillCategory();
-            Filltest();
-            // NYTT AAAAAA
+        
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int index = e.RowIndex;
+            DataGridViewRow selctedrow = dataGridView1.Rows[index];
+            string url = selctedrow.Cells[3].Value.ToString();
+            FillEpisodeList(url);
+
         }
 
         private void NameLBL_Click(object sender, EventArgs e)
