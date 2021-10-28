@@ -24,6 +24,7 @@ namespace PL
             categoryController = new CategoryController();
             InitializeComponent();
             fillCategory();
+            FillDataGrid();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -60,6 +61,20 @@ namespace PL
             fillCategory();
             
 
+        }
+
+        private void FillDataGrid()
+        {
+            List<Feed> allFeeds = feedController.getAllFeeds();
+                foreach(var feed in allFeeds)
+            {
+                    string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Url, feed.Category };
+                    dataGridView1.Rows.Add(rowOfFeeds);
+            }
+
+            string[] row0 = { "11/22/1968", "29", "Revolution 9",
+            "Beatles", "The Beatles [White Album]" };
+            dataGridView1.Rows.Add(row0);
         }
 
         private void categoryBox_SelectedIndexChanged(object sender, EventArgs e)
