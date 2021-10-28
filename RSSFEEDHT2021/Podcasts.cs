@@ -243,8 +243,13 @@ namespace PL
             string name = selctedrow.Cells[1].Value.ToString();
             string frq = selctedrow.Cells[2].Value.ToString();
             string category = selctedrow.Cells[3].Value.ToString();
+            
             Form form1 = new Form1(name, frq, category);
             form1.Show();
+        }
+        public void updateFeed()
+        {
+            FillDataGrid();
         }
     }
 }

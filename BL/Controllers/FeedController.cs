@@ -23,8 +23,6 @@ namespace BL.Controllers
             return feedList;
         }
 
-
-
         public async void Createfeed(string pName, string pUrl, string fReq, string pCategory)
         {
             if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
@@ -33,13 +31,23 @@ namespace BL.Controllers
                 {
                     if (validator.TextEmpty(fReq))
                     {
-                        List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
-                        Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
-                        feedRepository.Create(newFeed);
-                    }else{
+                        if (validator.TextEmpty(pName))
+                        {
+                            List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
+                            Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                            feedRepository.Create(newFeed);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Du måste välja i ett namn!");
+                        }
+                    }
+                    else
+                    {
                         MessageBox.Show("Du måste välja i en frekvens!");
-                         }
-                 }else
+                    }
+                }
+                else
                 {
                     MessageBox.Show("Du måste välja i en kategori!");
                 }
@@ -72,6 +80,44 @@ namespace BL.Controllers
             feedRepository.Delete(i);
         }
 
+        public async void updateFeed(string pName, string pUrl, string fReq, string pCategory, int index)
+        {
+            if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
+            {
+                if (validator.TextEmpty(pCategory))
+                {
+                    if (validator.TextEmpty(fReq))
+                    {
+                        if (validator.TextEmpty(pName))
+                        {
+                            List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
+                            Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                            feedRepository.Update(index, newFeed);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Du måste välja i ett namn!");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Du måste välja i en frekvens!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Du måste välja i en kategori!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du måste fylla i en gitlig url");
+            }
+        }
+        public int getIndexByNam(string name)
+        {
+            return feedRepository.GetIndexOfName(name);
+        }    
     }
 }
 

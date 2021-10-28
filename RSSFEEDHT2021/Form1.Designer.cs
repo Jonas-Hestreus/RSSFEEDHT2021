@@ -29,20 +29,24 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.frqCombo = new System.Windows.Forms.ComboBox();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CategoryCombo = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // frqCombo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(258, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.frqCombo.FormattingEnabled = true;
+            this.frqCombo.Items.AddRange(new object[] {
+            "Varje minut",
+            "Var 5:e minut",
+            "Var 10:e minut"});
+            this.frqCombo.Location = new System.Drawing.Point(258, 30);
+            this.frqCombo.Name = "frqCombo";
+            this.frqCombo.Size = new System.Drawing.Size(121, 21);
+            this.frqCombo.TabIndex = 0;
             // 
             // nameBox
             // 
@@ -88,7 +92,7 @@ namespace PL
             this.Controls.Add(this.CategoryCombo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameBox);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.frqCombo);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -99,7 +103,7 @@ namespace PL
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox frqCombo;
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox CategoryCombo;

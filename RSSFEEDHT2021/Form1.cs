@@ -43,7 +43,14 @@ namespace PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            int index = feedController.getIndexByNam(FeedName);
+            string url = feedController.getAllFeeds()[index].Url;
+            string frq = frqCombo.SelectedItem.ToString();
+            string category = CategoryCombo.SelectedItem.ToString();
+            string name = nameBox.Text;
+            feedController.updateFeed(name, url, frq, category, index);
+            MessageBox.Show("Din podcast har nu namnet : " + name);
+            this.Close();
         }
 
         private void fillCategory()
