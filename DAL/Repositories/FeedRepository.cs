@@ -63,18 +63,9 @@ namespace DAL.Repositories
             return allEpisodes;
         }
 
-        public int GetIndexOfCategory(string name)
+        public int GetIndexOfCategory(string categoryName)
         {
-            int i = 0;
-            foreach (var feed in listOfFeeds)
-            {
-                if (name.Equals(feed.Category))
-                {
-                    break;
-                }
-                i++;
-            }
-            return i;
+            return GetAll().FindIndex(e => e.Category.Equals(categoryName));
         }
 
         public int GetIndexOfName(string name)

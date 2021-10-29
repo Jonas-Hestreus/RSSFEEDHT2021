@@ -33,9 +33,16 @@ namespace BL.Controllers
                     {
                         if (validator.TextEmpty(pName))
                         {
-                            List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
-                            Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
-                            feedRepository.Create(newFeed);
+                            if (nameIsUnique(pName))
+                            {
+                                List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
+                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                                feedRepository.Create(newFeed);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Du har redan en feed med namnet : " + pName);
+                            }
                         }
                         else
                         {
@@ -90,9 +97,9 @@ namespace BL.Controllers
                     {
                         if (validator.TextEmpty(pName))
                         {
-                            List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
-                            Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
-                            feedRepository.Update(index, newFeed);
+                                List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
+                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                                feedRepository.Update(index, newFeed);
                         }
                         else
                         {
@@ -117,7 +124,21 @@ namespace BL.Controllers
         public int getIndexByNam(string name)
         {
             return feedRepository.GetIndexOfName(name);
-        }    
+        }
+
+        public Boolean nameIsUnique(string name)
+        {
+            Boolean nomatch = true;
+            foreach (var item in getAllFeeds())
+            {
+                if (item.Name.Equals(name))
+                {
+                    nomatch = false;
+                    break;
+                }
+            }
+            return nomatch;
+        }
     }
 }
 

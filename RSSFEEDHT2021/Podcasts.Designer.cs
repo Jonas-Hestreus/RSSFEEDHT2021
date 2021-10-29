@@ -60,8 +60,10 @@ namespace PL
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.updateButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.upDateBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,7 +164,7 @@ namespace PL
             // 
             // ctgSaveBTN
             // 
-            this.ctgSaveBTN.Location = new System.Drawing.Point(716, 259);
+            this.ctgSaveBTN.Location = new System.Drawing.Point(716, 267);
             this.ctgSaveBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ctgSaveBTN.Name = "ctgSaveBTN";
             this.ctgSaveBTN.Size = new System.Drawing.Size(57, 20);
@@ -173,10 +175,10 @@ namespace PL
             // 
             // ctgNewBTN
             // 
-            this.ctgNewBTN.Location = new System.Drawing.Point(525, 199);
+            this.ctgNewBTN.Location = new System.Drawing.Point(644, 199);
             this.ctgNewBTN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ctgNewBTN.Name = "ctgNewBTN";
-            this.ctgNewBTN.Size = new System.Drawing.Size(248, 20);
+            this.ctgNewBTN.Size = new System.Drawing.Size(129, 20);
             this.ctgNewBTN.TabIndex = 11;
             this.ctgNewBTN.Text = "Ta bort markerad kategori";
             this.ctgNewBTN.UseVisualStyleBackColor = true;
@@ -258,7 +260,7 @@ namespace PL
             // episodeInfoLBL
             // 
             this.episodeInfoLBL.AutoSize = true;
-            this.episodeInfoLBL.Location = new System.Drawing.Point(527, 298);
+            this.episodeInfoLBL.Location = new System.Drawing.Point(521, 298);
             this.episodeInfoLBL.Name = "episodeInfoLBL";
             this.episodeInfoLBL.Size = new System.Drawing.Size(39, 13);
             this.episodeInfoLBL.TabIndex = 22;
@@ -268,11 +270,12 @@ namespace PL
             // episodeInfoText
             // 
             this.episodeInfoText.AutoSize = true;
-            this.episodeInfoText.Location = new System.Drawing.Point(527, 319);
+            this.episodeInfoText.Location = new System.Drawing.Point(521, 325);
             this.episodeInfoText.Name = "episodeInfoText";
             this.episodeInfoText.Size = new System.Drawing.Size(39, 13);
             this.episodeInfoText.TabIndex = 23;
             this.episodeInfoText.Text = "Avsnitt";
+            this.episodeInfoText.Click += new System.EventHandler(this.episodeInfoText_Click);
             // 
             // label12
             // 
@@ -287,7 +290,7 @@ namespace PL
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(525, 240);
+            this.label1.Location = new System.Drawing.Point(527, 252);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 13);
             this.label1.TabIndex = 25;
@@ -295,7 +298,7 @@ namespace PL
             // 
             // ctgSaveTxt
             // 
-            this.ctgSaveTxt.Location = new System.Drawing.Point(525, 259);
+            this.ctgSaveTxt.Location = new System.Drawing.Point(524, 267);
             this.ctgSaveTxt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ctgSaveTxt.Name = "ctgSaveTxt";
             this.ctgSaveTxt.Size = new System.Drawing.Size(186, 20);
@@ -378,15 +381,6 @@ namespace PL
             this.label2.TabIndex = 29;
             this.label2.Text = "Namn:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // updateButton
             // 
             this.updateButton.Location = new System.Drawing.Point(35, 240);
@@ -397,13 +391,42 @@ namespace PL
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(525, 199);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(109, 20);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Sortera";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(525, 223);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(109, 20);
+            this.button2.TabIndex = 33;
+            this.button2.Text = "Update";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // upDateBox1
+            // 
+            this.upDateBox1.Location = new System.Drawing.Point(644, 223);
+            this.upDateBox1.Name = "upDateBox1";
+            this.upDateBox1.Size = new System.Drawing.Size(129, 20);
+            this.upDateBox1.TabIndex = 34;
+            // 
             // Podcasts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(829, 578);
-            this.Controls.Add(this.updateButton);
+            this.Controls.Add(this.upDateBox1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nameTxt);
             this.Controls.Add(this.dataGridView1);
@@ -474,8 +497,10 @@ namespace PL
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.TextBox nameTxt;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox upDateBox1;
     }
 }
 

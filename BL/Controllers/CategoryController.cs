@@ -43,23 +43,43 @@ namespace BL.Controllers
         {
             if (validator.TextEmpty(category))
             {
-                int i = categoryRepository.GetIndexOfName(category);
-                categoryRepository.Delete(i);
-                MessageBox.Show(category + " har blivit raderad");
+                DialogResult dialogResult = MessageBox.Show("Vill du ta bort podcasten " + category + "?", "Bekräfta", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    int i = categoryRepository.GetIndexOfName(category);
+                    categoryRepository.Delete(i);
+                    MessageBox.Show(category + " har blivit raderad");
+                }
             }
             else
             {
                 Console.WriteLine("No category");
-
             }
         }
 
-
-        public void updatCategory(Category oldCat, string newCategoryName)
+        public void updatCategory(int index, string newCategoryName)
         {
-            int i = categoryRepository.GetIndexOfName(oldCat.CategoryName);
-            Category newCategory = new Category(newCategoryName);
-            categoryRepository.Update(i, newCategory);
+            Category updatedCat = new Category(newCategoryName);
+            categoryRepository.Update(index, updatedCat);
+        }
+        public int getIndex(string name)
+        {
+            return categoryRepository.GetIndexOfName(name);
+        }
+
+
+        public Boolean uniqueCategory(string categoryToCheck)
+        {
+            Boolean noMatch = true;
+            foreach(var category in GetAllCategory())
+            {
+                if (category.CategoryName.Equals(categoryToCheck))
+                {
+                    noMatch = false;
+                    break;
+                }
+            }
+            return noMatch;
         }
     }
 }

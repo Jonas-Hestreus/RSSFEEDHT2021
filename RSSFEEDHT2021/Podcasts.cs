@@ -57,18 +57,26 @@ namespace PL
         private void ctgNewBTN_Click(object sender, EventArgs e)
         {
             string categoryToDelete = categoryBox.GetItemText(categoryBox.SelectedItem);
+            List<Feed> feeds = feedController.getAllFeeds();
+            foreach (var item in feeds)
+            {
+                if (item.Category.Equals(categoryToDelete))
+                {
+                    feedController.deleteFeed(item.Name);
+                }
+            }
             categoryController.deleteCategory(categoryToDelete);
             fillCategory();
             fillCategory();
-            
-
+            FillDataGrid();
+            _ = delay();
         }
 
       
 
         private void categoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            upDateBox1.Text = categoryBox.SelectedItem.ToString();
         }
 
         private void CategoryCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,9 +98,30 @@ namespace PL
             string category = CategoryCombo.GetItemText(CategoryCombo.SelectedItem);
             feedController.Createfeed(name, url, frq, category);
             FillDataGrid();
+            _=delay();
 
         }
 
+        async Task delay()
+        {
+            await Task.Delay(250);
+            FillDataGrid();
+        }
+
+        private void sortBoyCategory(string category)
+        {
+            dataGridView1.Rows.Clear();
+            List<Feed> feeds = feedController.getAllFeeds();
+            foreach(var feed in feeds)
+            {
+                if (feed.Category.Equals(category))
+                {
+                    string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Category };
+                    dataGridView1.Rows.Add(rowOfFeeds);
+                }
+            }
+
+        }
 
         private void fillCategory()
         {
@@ -228,6 +257,7 @@ namespace PL
                 string feedName = selctedrow.Cells[1].Value.ToString();
                 feedController.deleteFeed(feedName);
                 FillDataGrid();
+                episodeBox.Items.Clear();
             }
 
             catch (Exception)
@@ -238,18 +268,64 @@ namespace PL
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int index = dataGridView1.CurrentCell.RowIndex;
-            DataGridViewRow selctedrow = dataGridView1.Rows[index];
-            string name = selctedrow.Cells[1].Value.ToString();
-            string frq = selctedrow.Cells[2].Value.ToString();
-            string category = selctedrow.Cells[3].Value.ToString();
-            
-            Form form1 = new Form1(name, frq, category);
-            form1.Show();
+            try
+            {
+                int index = dataGridView1.CurrentCell.RowIndex;
+                DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                string name = selctedrow.Cells[1].Value.ToString();
+                string frq = selctedrow.Cells[2].Value.ToString();
+                string category = selctedrow.Cells[3].Value.ToString();
+                Form form1 = new Form1(name, frq, category);
+                form1.Show();
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Nullpoint");
+            }
         }
         public void updateFeed()
         {
             FillDataGrid();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sortBoyCategory(categoryBox.SelectedItem.ToString());
+            }
+            catch(Exception)
+            {
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if (categoryController.uniqueCategory(upDateBox1.Text))
+            {
+                string oldCategory = categoryBox.GetItemText(categoryBox.SelectedItem);
+                List<Feed> feeds = feedController.getAllFeeds();
+                string newCat = upDateBox1.Text;
+                foreach (var item in feeds)
+                {
+                    if (item.Category.Equals(oldCategory))
+                    {
+                        int i = feedController.getIndexByNam(item.Name);
+                        feedController.updateFeed(item.Name, item.Url, item.Freq, newCat, i);
+                    }
+                }
+                int index = categoryController.getIndex(oldCategory);
+                categoryController.updatCategory(index, newCat);
+                fillCategory();
+                fillCategory();
+                FillDataGrid();
+                _= delay();
+            }
+        }
+
+        private void episodeInfoText_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

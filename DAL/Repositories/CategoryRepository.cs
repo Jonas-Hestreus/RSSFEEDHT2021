@@ -47,8 +47,11 @@ namespace DAL.Repositories
         }
         public void Update(int i, Category updatedCategory)
         {
-            listOfCategory[i] = updatedCategory;
-            SaveChanges();
+            if (i >= 0)
+            {
+                listOfCategory[i] = updatedCategory;
+                SaveChanges();
+            }
         }
     }
 }
