@@ -327,5 +327,13 @@ namespace PL
         {
 
         }
+
+        private void episodeDesc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+            
+        
     }
 }

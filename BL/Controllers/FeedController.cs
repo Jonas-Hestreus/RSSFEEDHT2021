@@ -81,6 +81,7 @@ namespace BL.Controllers
 
         }
 
+
         public void deleteFeed(string name)
         {
             int i = feedRepository.GetIndexOfName(name);
