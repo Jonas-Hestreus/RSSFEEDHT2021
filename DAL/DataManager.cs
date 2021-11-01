@@ -3,29 +3,44 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 using Models;
+using DAL.Exceptions;
 namespace DAL
 {
-    public class DataManager
+    public class DataManage
     {
         public void SerializeFiles(List<Feed> listofFeeds)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Feed>));
-            using (FileStream reader = new FileStream("feeds.xml", FileMode.Create, FileAccess.Write))
+            try
             {
-                xmlSerializer.Serialize(reader, listofFeeds);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Feed>));
+                using (FileStream reader = new FileStream("feeds.xml", FileMode.Create, FileAccess.Write))
+                {
+                    xmlSerializer.Serialize(reader, listofFeeds);
+                }
             }
+            catch(Exception e)
+            {
+                throw new SerializerException("feeds.xml", "Could not serialize to the file");
+            }
+
         }
         public List<Feed> DerializeFiles()
         {
-            List<Feed> itemsInXML;
-            XmlSerializer serilizer = new XmlSerializer(typeof(List<Feed>));
-
-            using (Stream reader = new FileStream("feeds.xml", FileMode.Open, FileAccess.Read))
+            try
             {
-                itemsInXML = (List<Feed>)serilizer.Deserialize(reader);
-            }
+                List<Feed> itemsInXML;
+                XmlSerializer serilizer = new XmlSerializer(typeof(List<Feed>));
 
-            return itemsInXML;
+                using (Stream reader = new FileStream("feeds.xml", FileMode.Open, FileAccess.Read))
+                {
+                    itemsInXML = (List<Feed>)serilizer.Deserialize(reader);
+                }
+                return itemsInXML;
+            }
+            catch
+            {
+                throw new SerializerException("feeds.xml", "Could not deserialize the file.");
+            }
         }
     }
 }
