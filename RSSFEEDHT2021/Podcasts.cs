@@ -19,7 +19,7 @@ namespace PL
     {
         FeedController feedController;
         CategoryController categoryController;
-       
+
         public Podcasts()
         {
             feedController = new FeedController();
@@ -51,7 +51,7 @@ namespace PL
 
         private void FreqCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-        
+
         }
 
         private void ctgNewBTN_Click(object sender, EventArgs e)
@@ -72,11 +72,18 @@ namespace PL
             _ = delay();
         }
 
-      
+
 
         private void categoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            upDateBox1.Text = categoryBox.SelectedItem.ToString();
+            try
+            {
+                upDateBox1.Text = categoryBox.SelectedItem.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Null exception");
+            }
         }
 
         private void CategoryCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,7 +105,7 @@ namespace PL
             string category = CategoryCombo.GetItemText(CategoryCombo.SelectedItem);
             feedController.Createfeed(name, url, frq, category);
             FillDataGrid();
-            _=delay();
+            _ = delay();
 
         }
 
@@ -112,7 +119,7 @@ namespace PL
         {
             dataGridView1.Rows.Clear();
             List<Feed> feeds = feedController.getAllFeeds();
-            foreach(var feed in feeds)
+            foreach (var feed in feeds)
             {
                 if (feed.Category.Equals(category))
                 {
@@ -132,8 +139,8 @@ namespace PL
             foreach (var item in categoryList)
             {
 
-                    categoryBox.Items.Add(item.CategoryName);
-                    CategoryCombo.Items.Add(item.CategoryName);
+                categoryBox.Items.Add(item.CategoryName);
+                CategoryCombo.Items.Add(item.CategoryName);
             }
         }
 
@@ -153,7 +160,7 @@ namespace PL
         {
             episodeBox.Items.Clear();
             List<Episode> episodes = feedController.getEpisodes(url);
-            
+
             foreach (var epuisode in episodes)
             {
                 episodeBox.Items.Add(epuisode.Name);
@@ -162,7 +169,7 @@ namespace PL
 
         private void ctgDeleteBTN_Click(object sender, EventArgs e)
         {
-         
+
         }
 
         private void ctgDeleteBTN_Click_1(object sender, EventArgs e)
@@ -171,7 +178,7 @@ namespace PL
             categoryController.deleteCategory(categoryToDelete);
             feedController.deleteFeedasedOnCategory(categoryToDelete);
             fillCategory();
-        
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -215,14 +222,14 @@ namespace PL
 
         private void ctgSaveBTN_Click(object sender, EventArgs e)
         {
-            Boolean match = false; 
-            List<Category> allCategory = categoryController.GetAllCategory(); 
-               foreach (var category in allCategory)
+            Boolean match = false;
+            List<Category> allCategory = categoryController.GetAllCategory();
+            foreach (var category in allCategory)
             {
                 if (category.CategoryName.Equals(ctgSaveTxt.Text))
                 {
-                     match = true;
-                     break;
+                    match = true;
+                    break;
                 }
             }
             if (match)
@@ -235,7 +242,7 @@ namespace PL
                 categoryController.createCategory(ctgSaveTxt.Text);
                 fillCategory();
             }
-                
+
         }
 
         private void Podcasts_Load_1(object sender, EventArgs e)
@@ -278,7 +285,7 @@ namespace PL
                 Form form1 = new Form1(name, frq, category);
                 form1.Show();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("Nullpoint");
             }
@@ -294,8 +301,9 @@ namespace PL
             {
                 sortBoyCategory(categoryBox.SelectedItem.ToString());
             }
-            catch(Exception)
+            catch (NullReferenceException)
             {
+                Console.WriteLine("Nullpoint");
             }
         }
 
@@ -319,7 +327,7 @@ namespace PL
                 fillCategory();
                 fillCategory();
                 FillDataGrid();
-                _= delay();
+                _ = delay();
             }
         }
 
@@ -333,7 +341,55 @@ namespace PL
 
         }
 
-            
-        
+        private void episodeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string episode = episodeBox.SelectedItem.ToString();
+            int index = dataGridView1.CurrentCell.RowIndex;
+            if (index >= 0)
+            {
+                DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                string feedName = selctedrow.Cells[1].Value.ToString();
+                List<Episode> episodes = feedController.getEpisodes(feedName);
+                foreach (var item in episodes)
+                {
+                    if (episode.Equals(item.Name))
+                    {
+                        descLBL.Text=item.Description;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+
+    
+
+    private void updFreqLBL_Click(object sender, EventArgs e)
+    {
+
+    }
+
+        private void descLBL_Click(object sender, EventArgs e)
+        {
+            {
+                string episode = episodeBox.SelectedItem.ToString();
+                int index = dataGridView1.CurrentCell.RowIndex;
+                if (index >= 0)
+                {
+                    DataGridViewRow selctedrow = dataGridView1.Rows[index];
+                    string feedName = selctedrow.Cells[1].Value.ToString();
+                    List<Episode> episodes = feedController.getEpisodes(feedName);
+                    foreach (var item in episodes)
+                    {
+                        if (episode.Equals(item.Name))
+                        {
+                            descLBL.Text=item.Description;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
