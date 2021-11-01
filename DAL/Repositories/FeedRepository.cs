@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Models;
+using DAL.Exceptions;
+using DAL;
 
 namespace DAL.Repositories
 {
@@ -40,9 +42,9 @@ namespace DAL.Repositories
                 listOfFeedDeserialized = dataManager.DerializeFiles();
 
             }
-            catch (Exception)
+            catch (SerializerException)
             {
-             
+                Console.WriteLine("Could not deserialize file feeds.xml");
             }
                       
                 return listOfFeedDeserialized;

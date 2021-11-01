@@ -6,7 +6,7 @@ using Models;
 using DAL.Exceptions;
 namespace DAL
 {
-    public class DataManage
+    public class DataManager
     {
         public void SerializeFiles(List<Feed> listofFeeds)
         {
@@ -18,7 +18,7 @@ namespace DAL
                     xmlSerializer.Serialize(reader, listofFeeds);
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw new SerializerException("feeds.xml", "Could not serialize to the file");
             }
@@ -37,7 +37,7 @@ namespace DAL
                 }
                 return itemsInXML;
             }
-            catch
+            catch(Exception)
             {
                 throw new SerializerException("feeds.xml", "Could not deserialize the file.");
             }

@@ -1,6 +1,7 @@
 ﻿using Models;
 using System.Collections.Generic;
-
+using DAL.Exceptions;
+using System;
 
 namespace DAL.Repositories
 {
@@ -19,7 +20,14 @@ namespace DAL.Repositories
         public List<Category> GetAll()
         {
             List<Category> allCa = new List<Category>();
-            allCa = dataManager.DerializeFiles();
+            try
+            {
+                allCa = dataManager.DerializeFiles();
+            }
+            catch (SerializerException)
+            {
+                Console.Write("Could not Deserialze category.xml");
+            }
             return allCa;
         }
 

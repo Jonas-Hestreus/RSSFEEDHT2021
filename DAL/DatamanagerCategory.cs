@@ -18,7 +18,7 @@ namespace DAL
                     xmlSerializer.Serialize(reader, listofCategory);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new SerializerException("category.xml", "Could not serialize to the file");
             }
@@ -35,7 +35,7 @@ namespace DAL
                 }
                 return itemsInXML;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new SerializerException("category.xml", "Could not deserialize to the file");
             }

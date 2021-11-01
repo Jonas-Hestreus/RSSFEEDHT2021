@@ -83,7 +83,10 @@ namespace PL
         {
             try
             {
-                upDateBox1.Text = categoryBox.SelectedItem.ToString();
+                if (categoryBox.SelectedItem != null)
+                {
+                    upDateBox1.Text = categoryBox.SelectedItem.ToString();
+                }
             }
             catch (NullReferenceException)
             {
