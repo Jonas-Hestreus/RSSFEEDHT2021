@@ -48,8 +48,9 @@ namespace PL
             string frq = frqCombo.SelectedItem.ToString();
             string category = CategoryCombo.SelectedItem.ToString();
             string name = nameBox.Text;
-            feedController.updateFeed(name, url, frq, category, index);
-            MessageBox.Show("Din podcast har nu namnet : " + name);
+            DateTime nextUpdate = DateTime.Now;
+            feedController.updateFeed(name, url, frq, category, nextUpdate, index);
+            MessageBox.Show("Din podcast är updaterad");
             this.Close();
         }
 
@@ -67,9 +68,12 @@ namespace PL
         {
             nameBox.Text = FeedName;
             CategoryCombo.SelectedIndex = CategoryCombo.FindString(Category);
+            frqCombo.SelectedIndex = frqCombo.FindString(Frq);
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

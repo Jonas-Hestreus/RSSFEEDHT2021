@@ -29,6 +29,7 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.urlTXT = new System.Windows.Forms.TextBox();
             this.EpisodeLBL = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -63,6 +64,7 @@ namespace PL
             this.label3 = new System.Windows.Forms.Label();
             this.____ = new System.Windows.Forms.Label();
             this.descLBL = new System.Windows.Forms.RichTextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,9 +166,9 @@ namespace PL
             this.FreqCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FreqCombo.FormattingEnabled = true;
             this.FreqCombo.Items.AddRange(new object[] {
-            "Varje minut",
-            "Var 5:e minut",
-            "Var 10:e minut"});
+            "15",
+            "30",
+            "60"});
             this.FreqCombo.Location = new System.Drawing.Point(479, 359);
             this.FreqCombo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.FreqCombo.Name = "FreqCombo";
@@ -178,7 +180,7 @@ namespace PL
             // 
             this.CategoryCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryCombo.FormattingEnabled = true;
-            this.CategoryCombo.Location = new System.Drawing.Point(740, 359);
+            this.CategoryCombo.Location = new System.Drawing.Point(740, 361);
             this.CategoryCombo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.CategoryCombo.Name = "CategoryCombo";
             this.CategoryCombo.Size = new System.Drawing.Size(204, 33);
@@ -188,12 +190,12 @@ namespace PL
             // updFreqLBL
             // 
             this.updFreqLBL.AutoSize = true;
-            this.updFreqLBL.Location = new System.Drawing.Point(472, 330);
+            this.updFreqLBL.Location = new System.Drawing.Point(371, 329);
             this.updFreqLBL.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.updFreqLBL.Name = "updFreqLBL";
-            this.updFreqLBL.Size = new System.Drawing.Size(228, 25);
+            this.updFreqLBL.Size = new System.Drawing.Size(337, 25);
             this.updFreqLBL.TabIndex = 16;
-            this.updFreqLBL.Text = "Uppdateringsfrekvens:";
+            this.updFreqLBL.Text = "Uppdateringsfrekvens (sekunder):";
             this.updFreqLBL.Click += new System.EventHandler(this.updFreqLBL_Click);
             // 
             // CategoryLBL2
@@ -427,6 +429,12 @@ namespace PL
             this.descLBL.TabIndex = 39;
             this.descLBL.Text = "";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Podcasts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -508,6 +516,7 @@ namespace PL
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label ____;
         private System.Windows.Forms.RichTextBox descLBL;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

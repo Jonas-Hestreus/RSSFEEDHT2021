@@ -27,6 +27,9 @@ namespace PL
             InitializeComponent();
             fillCategory();
             FillDataGrid();
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
+            timer1.Start();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -58,18 +61,20 @@ namespace PL
         {
             string categoryToDelete = categoryBox.GetItemText(categoryBox.SelectedItem);
             List<Feed> feeds = feedController.getAllFeeds();
-            foreach (var item in feeds)
+            if (categoryController.deleteCategory(categoryToDelete))
             {
-                if (item.Category.Equals(categoryToDelete))
+                foreach (var item in feeds)
                 {
-                    feedController.deleteFeed(item.Name);
+                    if (item.Category.Equals(categoryToDelete))
+                    {
+                        feedController.deleteFeed(item.Name);
+                    }
                 }
+                fillCategory();
+                fillCategory();
+                FillDataGrid();
+                _ = delay();
             }
-            categoryController.deleteCategory(categoryToDelete);
-            fillCategory();
-            fillCategory();
-            FillDataGrid();
-            _ = delay();
         }
 
 
@@ -100,10 +105,10 @@ namespace PL
         {
             string name = nameTxt.Text;
             string url = urlTXT.Text;
-            // string frq = FreqCombo.GetItemText(FreqCombo.SelectedItem);
-            string frq = "10";
+            string frq = FreqCombo.GetItemText(FreqCombo.SelectedItem);
             string category = CategoryCombo.GetItemText(CategoryCombo.SelectedItem);
-            feedController.Createfeed(name, url, frq, category);
+            DateTime nextUpdate = DateTime.Now;
+            feedController.Createfeed(name, url, frq, category, nextUpdate);
             FillDataGrid();
             _ = delay();
 
@@ -144,7 +149,7 @@ namespace PL
             }
         }
 
-        private void FillDataGrid()
+        public void FillDataGrid()
         {
             dataGridView1.Rows.Clear();
             List<Feed> allFeeds = feedController.getAllFeeds();
@@ -290,6 +295,7 @@ namespace PL
                 Console.WriteLine("Nullpoint");
             }
         }
+        
         public void updateFeed()
         {
             FillDataGrid();
@@ -319,7 +325,7 @@ namespace PL
                     if (item.Category.Equals(oldCategory))
                     {
                         int i = feedController.getIndexByNam(item.Name);
-                        feedController.updateFeed(item.Name, item.Url, item.Freq, newCat, i);
+                        feedController.updateFeed(item.Name, item.Url, item.Freq, newCat, item.NextUpdate, i);
                     }
                 }
                 int index = categoryController.getIndex(oldCategory);
@@ -361,10 +367,6 @@ namespace PL
             }
         }
 
-
-
-    
-
     private void updFreqLBL_Click(object sender, EventArgs e)
     {
 
@@ -390,6 +392,24 @@ namespace PL
                     }
                 }
             }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void timer1_Tick(object sender, EventArgs e)
+        {
+
+            Boolean updated = await feedController.UpdateFeedTick();
+            if (updated)
+            {
+                    FillDataGrid();
+            }
+            
+            
+
         }
     }
 }

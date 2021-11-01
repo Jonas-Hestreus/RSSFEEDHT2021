@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using DAL;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace BL.Controllers
 {
@@ -23,7 +24,7 @@ namespace BL.Controllers
             return feedList;
         }
 
-        public async void Createfeed(string pName, string pUrl, string fReq, string pCategory)
+        public async void Createfeed(string pName, string pUrl, string fReq, string pCategory, DateTime nextUpdate)
         {
             if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
             {
@@ -36,7 +37,7 @@ namespace BL.Controllers
                             if (nameIsUnique(pName))
                             {
                                 List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
-                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq, nextUpdate);
                                 feedRepository.Create(newFeed);
                             }
                             else
@@ -88,7 +89,7 @@ namespace BL.Controllers
             feedRepository.Delete(i);
         }
 
-        public async void updateFeed(string pName, string pUrl, string fReq, string pCategory, int index)
+        public async void updateFeed(string pName, string pUrl, string fReq, string pCategory, DateTime nextUpdate, int index)
         {
             if (validator.TextEmpty(pUrl) && validator.CheckUrl(pUrl))
             {
@@ -99,7 +100,7 @@ namespace BL.Controllers
                         if (validator.TextEmpty(pName))
                         {
                                 List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
-                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq);
+                                Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq, nextUpdate);
                                 feedRepository.Update(index, newFeed);
                         }
                         else
@@ -139,6 +140,28 @@ namespace BL.Controllers
                 }
             }
             return nomatch;
+        }
+
+        public async Task<Boolean> UpdateFeedTick()
+        {
+            Boolean updated = false;
+            foreach(var feed in getAllFeeds())
+            {
+                DateTime nextUpdate = feed.NextUpdate;
+                int freq = Int32.Parse(feed.Freq);
+                freq = freq * 1000;
+                if (feed.NeedUpdate)
+                {
+                    feed.NextUpdate = DateTime.Now.AddSeconds(freq);
+                    int index = getIndexByNam(feed.Name);
+                    List<Episode> episodes = await feedRepository.getEpisodes(feed.Url);
+                    Feed newFeed = new Feed(feed.Name, feed.Url, feed.Category, episodes, feed.Freq, feed.NextUpdate);
+                    feedRepository.Update(index, newFeed);
+                    updated = true;
+                }
+            }
+
+            return updated;
         }
     }
 }

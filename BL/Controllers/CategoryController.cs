@@ -39,8 +39,9 @@ namespace BL.Controllers
         {
             return categoryRepository.GetAll();
         }
-        public void deleteCategory(string category)
+        public bool deleteCategory(string category)
         {
+            bool delete = false;
             if (validator.TextEmpty(category))
             {
                 DialogResult dialogResult = MessageBox.Show("Vill du ta bort podcasten " + category + "?", "Bekräfta", MessageBoxButtons.YesNo);
@@ -49,12 +50,14 @@ namespace BL.Controllers
                     int i = categoryRepository.GetIndexOfName(category);
                     categoryRepository.Delete(i);
                     MessageBox.Show(category + " har blivit raderad");
+                     delete = true;
                 }
             }
             else
             {
                 Console.WriteLine("No category");
             }
+            return delete;
         }
 
         public void updatCategory(int index, string newCategoryName)
