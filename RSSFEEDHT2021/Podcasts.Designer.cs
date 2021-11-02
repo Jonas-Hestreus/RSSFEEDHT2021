@@ -30,6 +30,7 @@ namespace PL
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label CategoryLBL2;
             this.urlTXT = new System.Windows.Forms.TextBox();
             this.EpisodeLBL = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
@@ -42,7 +43,6 @@ namespace PL
             this.FreqCombo = new System.Windows.Forms.ComboBox();
             this.CategoryCombo = new System.Windows.Forms.ComboBox();
             this.updFreqLBL = new System.Windows.Forms.Label();
-            this.CategoryLBL2 = new System.Windows.Forms.Label();
             this.urlLBL = new System.Windows.Forms.Label();
             this.categoryBox = new System.Windows.Forms.ListBox();
             this.epEpisodeLBL = new System.Windows.Forms.Label();
@@ -65,6 +65,7 @@ namespace PL
             this.____ = new System.Windows.Forms.Label();
             this.descLBL = new System.Windows.Forms.RichTextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            CategoryLBL2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +86,6 @@ namespace PL
             this.EpisodeLBL.Size = new System.Drawing.Size(61, 25);
             this.EpisodeLBL.TabIndex = 2;
             this.EpisodeLBL.Text = "Feed";
-            this.EpisodeLBL.Click += new System.EventHandler(this.label1_Click);
             // 
             // splitter1
             // 
@@ -174,7 +174,6 @@ namespace PL
             this.FreqCombo.Name = "FreqCombo";
             this.FreqCombo.Size = new System.Drawing.Size(204, 33);
             this.FreqCombo.TabIndex = 14;
-            this.FreqCombo.SelectedIndexChanged += new System.EventHandler(this.FreqCombo_SelectedIndexChanged);
             // 
             // CategoryCombo
             // 
@@ -185,7 +184,6 @@ namespace PL
             this.CategoryCombo.Name = "CategoryCombo";
             this.CategoryCombo.Size = new System.Drawing.Size(204, 33);
             this.CategoryCombo.TabIndex = 15;
-            this.CategoryCombo.SelectedIndexChanged += new System.EventHandler(this.CategoryCombo_SelectedIndexChanged);
             // 
             // updFreqLBL
             // 
@@ -196,17 +194,16 @@ namespace PL
             this.updFreqLBL.Size = new System.Drawing.Size(337, 25);
             this.updFreqLBL.TabIndex = 16;
             this.updFreqLBL.Text = "Uppdateringsfrekvens (sekunder):";
-            this.updFreqLBL.Click += new System.EventHandler(this.updFreqLBL_Click);
             // 
             // CategoryLBL2
             // 
-            this.CategoryLBL2.AutoSize = true;
-            this.CategoryLBL2.Location = new System.Drawing.Point(741, 330);
-            this.CategoryLBL2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.CategoryLBL2.Name = "CategoryLBL2";
-            this.CategoryLBL2.Size = new System.Drawing.Size(98, 25);
-            this.CategoryLBL2.TabIndex = 17;
-            this.CategoryLBL2.Text = "Kategori:";
+            CategoryLBL2.AutoSize = true;
+            CategoryLBL2.Location = new System.Drawing.Point(741, 330);
+            CategoryLBL2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            CategoryLBL2.Name = "CategoryLBL2";
+            CategoryLBL2.Size = new System.Drawing.Size(98, 25);
+            CategoryLBL2.TabIndex = 17;
+            CategoryLBL2.Text = "Kategori:";
             // 
             // urlLBL
             // 
@@ -217,7 +214,6 @@ namespace PL
             this.urlLBL.Size = new System.Drawing.Size(60, 25);
             this.urlLBL.TabIndex = 18;
             this.urlLBL.Text = "URL:";
-            this.urlLBL.Click += new System.EventHandler(this.label8_Click);
             // 
             // categoryBox
             // 
@@ -249,7 +245,6 @@ namespace PL
             this.episodeInfoLBL.Size = new System.Drawing.Size(198, 25);
             this.episodeInfoLBL.TabIndex = 22;
             this.episodeInfoLBL.Text = "Avsnittsbeskrivning";
-            this.episodeInfoLBL.Click += new System.EventHandler(this.label10_Click);
             // 
             // label12
             // 
@@ -346,7 +341,6 @@ namespace PL
             this.nameTxt.Name = "nameTxt";
             this.nameTxt.Size = new System.Drawing.Size(375, 31);
             this.nameTxt.TabIndex = 28;
-            this.nameTxt.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label2
             // 
@@ -457,7 +451,7 @@ namespace PL
             this.Controls.Add(this.epEpisodeLBL);
             this.Controls.Add(this.categoryBox);
             this.Controls.Add(this.urlLBL);
-            this.Controls.Add(this.CategoryLBL2);
+            this.Controls.Add(CategoryLBL2);
             this.Controls.Add(this.updFreqLBL);
             this.Controls.Add(this.CategoryCombo);
             this.Controls.Add(this.FreqCombo);
@@ -473,7 +467,6 @@ namespace PL
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Podcasts";
             this.Text = "RSS";
-            this.Load += new System.EventHandler(this.Podcasts_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -494,7 +487,6 @@ namespace PL
         private System.Windows.Forms.ComboBox FreqCombo;
         private System.Windows.Forms.ComboBox CategoryCombo;
         private System.Windows.Forms.Label updFreqLBL;
-        private System.Windows.Forms.Label CategoryLBL2;
         private System.Windows.Forms.Label urlLBL;
         private System.Windows.Forms.ListBox categoryBox;
         private System.Windows.Forms.Label epEpisodeLBL;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using Models;
 using DAL.Exceptions;
+
 namespace DAL
 {
     public class DatamanagerCategory
@@ -39,8 +40,6 @@ namespace DAL
             {
                 throw new SerializerException("category.xml", "Could not deserialize to the file");
             }
-
-
         }
     }
 }

@@ -11,6 +11,7 @@
 
         public Media()
         {
+
         }
 
         public virtual string mediaType()

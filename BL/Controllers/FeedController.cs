@@ -13,6 +13,7 @@ namespace BL.Controllers
     {
         Validering validator;
         IFeedRepositroy<Feed> feedRepository;
+
         public FeedController()
         {
             validator = new Validering();
@@ -43,22 +44,22 @@ namespace BL.Controllers
                             }
                             else
                             {
-                                MessageBox.Show("Du har redan en feed med namnet : " + pName);
+                                MessageBox.Show("Du har redan en feed med namnet: " + pName);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Du måste välja i ett namn!");
+                            MessageBox.Show("Du måste välja ett namn!");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Du måste välja i en frekvens!");
+                        MessageBox.Show("Du måste välja en frekvens!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Du måste välja i en kategori!");
+                    MessageBox.Show("Du måste välja en kategori!");
                 }
             }
             else
@@ -66,13 +67,12 @@ namespace BL.Controllers
                 MessageBox.Show("Du måste fylla i en gitlig url");
             }
         }
-        
+
         public void deleteFeedasedOnCategory(string category)
         {
             List<Feed> listFeed = feedRepository.GetAll();
             int i = feedRepository.GetIndexOfCategory(category);
             feedRepository.Delete(i);
-
         }
 
         public List<Episode> getEpisodes(string name)
@@ -80,9 +80,7 @@ namespace BL.Controllers
             int index = feedRepository.GetIndexOfName(name);
             List<Feed> feeds = getAllFeeds();
             return feeds[index].Episodes;
-
         }
-
 
         public void deleteFeed(string name)
         {
@@ -124,6 +122,7 @@ namespace BL.Controllers
                 MessageBox.Show("Du måste fylla i en gitlig url");
             }
         }
+
         public int getIndexByNam(string name)
         {
             return feedRepository.GetIndexOfName(name);
@@ -132,7 +131,6 @@ namespace BL.Controllers
         public Boolean nameIsUnique(string name)
         {
             Boolean nomatch = true;
-
 
             List<Feed> feeds = getAllFeeds();
             var feedsQuery = from feed in feeds
@@ -163,7 +161,6 @@ namespace BL.Controllers
                     updated = true;
                 }
             }
-
             return updated;
         }
     }

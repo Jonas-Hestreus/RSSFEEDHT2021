@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="updFeed.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="updFeed.Designer.cs">
+      <DependentUpon>updFeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="Podcasts.cs">
@@ -60,8 +60,8 @@
       <DependentUpon>Podcasts.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="updFeed.resx">
+      <DependentUpon>updFeed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Podcasts.resx">
       <DependentUpon>Podcasts.cs</DependentUpon>

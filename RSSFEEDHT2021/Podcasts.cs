@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
 using BL.Controllers;
 using Models;
-using Microsoft.VisualBasic;
-
 
 namespace PL
 {
@@ -30,31 +24,6 @@ namespace PL
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick;
             timer1.Start();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FreqCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void ctgNewBTN_Click(object sender, EventArgs e)
@@ -77,8 +46,6 @@ namespace PL
             }
         }
 
-
-
         private void categoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -92,16 +59,6 @@ namespace PL
             {
                 Console.WriteLine("Null exception");
             }
-        }
-
-        private void CategoryCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void newBTN_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void saveBTN_Click(object sender, EventArgs e)
@@ -138,7 +95,6 @@ namespace PL
                 string[] rowOfFeeds = { feeds[index].Episodes.Count.ToString(), feeds[index].Name, feeds[index].Freq, feeds[index].Category };
                 dataGridView1.Rows.Add(rowOfFeeds);
             }
-
         }
 
         private void fillCategory()
@@ -149,7 +105,6 @@ namespace PL
 
             foreach (var item in categoryList)
             {
-
                 categoryBox.Items.Add(item.CategoryName);
                 CategoryCombo.Items.Add(item.CategoryName);
             }
@@ -164,9 +119,8 @@ namespace PL
                 string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Category };
                 dataGridView1.Rows.Add(rowOfFeeds);
             }
-
-
         }
+
         private void FillEpisodeList(string url)
         {
             episodeBox.Items.Clear();
@@ -178,10 +132,6 @@ namespace PL
             }
         }
 
-        private void ctgDeleteBTN_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void ctgDeleteBTN_Click_1(object sender, EventArgs e)
         {
@@ -201,21 +151,6 @@ namespace PL
                 string feedName = selctedrow.Cells[1].Value.ToString();
                 FillEpisodeList(feedName);
             }
-        }
-
-        private void NameLBL_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Podcasts_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -256,16 +191,6 @@ namespace PL
 
         }
 
-        private void Podcasts_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void deleteBTN_Click(object sender, EventArgs e)
         {
             try
@@ -280,7 +205,7 @@ namespace PL
 
             catch (Exception)
             {
-                Console.WriteLine("error");
+                Console.WriteLine("Error");
             }
         }
 
@@ -293,7 +218,7 @@ namespace PL
                 string name = selctedrow.Cells[1].Value.ToString();
                 string frq = selctedrow.Cells[2].Value.ToString();
                 string category = selctedrow.Cells[3].Value.ToString();
-                Form form1 = new Form1(name, frq, category);
+                Form form1 = new updFeed(name, frq, category);
                 form1.Show();
             }
             catch (Exception)
@@ -301,7 +226,7 @@ namespace PL
                 Console.WriteLine("Nullpoint");
             }
         }
-        
+
         public void updateFeed()
         {
             FillDataGrid();
@@ -343,16 +268,6 @@ namespace PL
             }
         }
 
-        private void episodeInfoText_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void episodeDesc_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void episodeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string episode = episodeBox.SelectedItem.ToString();
@@ -366,17 +281,12 @@ namespace PL
                 {
                     if (episode.Equals(item.Name))
                     {
-                        descLBL.Text=item.Description;
+                        descLBL.Text = item.Description;
                         break;
                     }
                 }
             }
         }
-
-    private void updFreqLBL_Click(object sender, EventArgs e)
-    {
-
-    }
 
         private void descLBL_Click(object sender, EventArgs e)
         {
@@ -392,7 +302,7 @@ namespace PL
                     {
                         if (episode.Equals(item.Name))
                         {
-                            descLBL.Text=item.Description;
+                            descLBL.Text = item.Description;
                             break;
                         }
                     }
@@ -400,22 +310,13 @@ namespace PL
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         private async void timer1_Tick(object sender, EventArgs e)
         {
-
             Boolean updated = await feedController.UpdateFeedTick();
             if (updated)
             {
-                    FillDataGrid();
+                FillDataGrid();
             }
-            
-            
-
         }
     }
 }

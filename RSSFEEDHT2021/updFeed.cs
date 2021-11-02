@@ -12,14 +12,14 @@ using Models;
 
 namespace PL
 {
-    public partial class Form1 : Form
+    public partial class updFeed : Form
     {
         string FeedName;
         string Frq;
         string Category;
         CategoryController cController;
         FeedController feedController;
-        public Form1(string feedName, string frq, string category)
+        public updFeed(string feedName, string frq, string category)
         {
             feedController = new FeedController();
             cController = new CategoryController();

@@ -8,8 +8,6 @@ using System.Linq;
 
 namespace BL.Controllers
 {
-
-
     public class CategoryController
     {
         Validering validator;
@@ -19,7 +17,6 @@ namespace BL.Controllers
         {
             categoryRepository = new CategoryRepository();
             validator = new Validering();
-
         }
         public void createCategory(string name)
         {
@@ -30,9 +27,8 @@ namespace BL.Controllers
             }
             else
             {
-                MessageBox.Show("Du´måste ge din categori ett namn");
+                MessageBox.Show("Du måste ge din kategori ett namn");
             }
-
         }
         public List<Category> GetAllCategory()
         {
@@ -49,7 +45,7 @@ namespace BL.Controllers
                     int i = categoryRepository.GetIndexOfName(category);
                     categoryRepository.Delete(i);
                     MessageBox.Show(category + " har blivit raderad");
-                     delete = true;
+                    delete = true;
                 }
             }
             else
@@ -58,7 +54,6 @@ namespace BL.Controllers
             }
             return delete;
         }
-
         public void updatCategory(int index, string newCategoryName)
         {
             Category updatedCat = new Category(newCategoryName);
@@ -68,8 +63,6 @@ namespace BL.Controllers
         {
             return categoryRepository.GetIndexOfName(name);
         }
-
-
         public Boolean uniqueCategory(string categoryToCheck)
         {
             Boolean noMatch = true;
@@ -80,19 +73,7 @@ namespace BL.Controllers
             if (categoryQuery.Count() > 0)
             {
                 noMatch = false;
-
             }
-
-            /*
-            foreach(var category in GetAllCategory())
-            {
-                if (category.CategoryName.Equals(categoryToCheck))
-                {
-                    noMatch = false;
-                    break;
-                }
-            }
-            */
 
             return noMatch;
         }

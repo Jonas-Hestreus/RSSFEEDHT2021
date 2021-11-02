@@ -6,7 +6,6 @@ using System;
 namespace DAL.Repositories
 {
     public class CategoryRepository : ICategoryRepository<Category>
-
     {
         DatamanagerCategory dataManager;
         List<Category> listOfCategory;
@@ -26,7 +25,7 @@ namespace DAL.Repositories
             }
             catch (SerializerException)
             {
-                Console.Write("Could not Deserialze category.xml");
+                Console.Write("Could not deserialize category.xml");
             }
             return allCa;
         }
@@ -35,8 +34,8 @@ namespace DAL.Repositories
         {
             listOfCategory.Add(newCategory);
             SaveChanges();
-
         }
+
         public void Delete(int i)
         {
             listOfCategory.RemoveAt(i);
@@ -46,13 +45,13 @@ namespace DAL.Repositories
         public void SaveChanges()
         {
             dataManager.SerializeFiles(listOfCategory);
-
         }
+
         public int GetIndexOfName(string categoryName)
         {
             return GetAll().FindIndex(e => e.CategoryName.Equals(categoryName));
-
         }
+
         public void Update(int i, Category updatedCategory)
         {
             if (i >= 0)

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 namespace DAL.Exceptions
 {
     public class SerializerException : Exception

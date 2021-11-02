@@ -18,11 +18,10 @@ namespace DAL
                     xmlSerializer.Serialize(reader, listofFeeds);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
-                throw new SerializerException("feeds.xml", "Could not serialize to the file");
+                throw new SerializerException("feeds.xml", "Could not serialize the file");
             }
-
         }
         public List<Feed> DerializeFiles()
         {
@@ -37,7 +36,7 @@ namespace DAL
                 }
                 return itemsInXML;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new SerializerException("feeds.xml", "Could not deserialize the file.");
             }

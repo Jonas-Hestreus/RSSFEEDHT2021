@@ -1,22 +1,19 @@
-﻿        using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 using Models;
 using DAL.Exceptions;
-using DAL;
 
 namespace DAL.Repositories
 {
-   public class FeedRepository : IFeedRepositroy<Feed>
+    public class FeedRepository : IFeedRepositroy<Feed>
     {
         DataManager dataManager;
         List<Feed> listOfFeeds;
 
-            public FeedRepository()
+        public FeedRepository()
         {
             dataManager = new DataManager();
             listOfFeeds = new List<Feed>();
@@ -33,7 +30,6 @@ namespace DAL.Repositories
             listOfFeeds.RemoveAt(i);
             SaveChanges();
         }
-
         public List<Feed> GetAll()
         {
             List<Feed> listOfFeedDeserialized = new List<Feed>();
@@ -46,12 +42,11 @@ namespace DAL.Repositories
             {
                 Console.WriteLine("Could not deserialize file feeds.xml");
             }
-                      
-                return listOfFeedDeserialized;
-            
+
+            return listOfFeedDeserialized;
         }
 
-        public async Task <List<Episode>> getEpisodes(string url)
+        public async Task<List<Episode>> getEpisodes(string url)
         {
             XmlReader rssReader = XmlReader.Create(url);
             SyndicationFeed rssFeed = await Task.Run(() => SyndicationFeed.Load(rssReader));
@@ -75,19 +70,19 @@ namespace DAL.Repositories
             return GetAll().FindIndex(e => e.Name.Equals(name));
         }
 
-            public void SaveChanges()
+        public void SaveChanges()
         {
-             dataManager.SerializeFiles(listOfFeeds);
+            dataManager.SerializeFiles(listOfFeeds);
         }
 
         public void Update(int i, Feed newMedia)
         {
-            if(i >= 0)
+            if (i >= 0)
             {
                 listOfFeeds[i] = newMedia;
             }
             SaveChanges();
         }
-        
+
     }
 }
