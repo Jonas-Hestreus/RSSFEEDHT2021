@@ -4,6 +4,7 @@ using DAL;
 using Models;
 using DAL.Repositories;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace BL.Controllers
 {
@@ -72,6 +73,17 @@ namespace BL.Controllers
         public Boolean uniqueCategory(string categoryToCheck)
         {
             Boolean noMatch = true;
+            List<Category> categories = GetAllCategory();
+            var categoryQuery = from category in categories
+                                where category.CategoryName.Contains(categoryToCheck)
+                                select category.CategoryName;
+            if (categoryQuery.Count() > 0)
+            {
+                noMatch = false;
+
+            }
+
+            /*
             foreach(var category in GetAllCategory())
             {
                 if (category.CategoryName.Equals(categoryToCheck))
@@ -80,6 +92,8 @@ namespace BL.Controllers
                     break;
                 }
             }
+            */
+
             return noMatch;
         }
     }

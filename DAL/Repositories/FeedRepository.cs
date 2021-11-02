@@ -1,4 +1,4 @@
-﻿using System;
+﻿        using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -75,7 +75,7 @@ namespace DAL.Repositories
             return GetAll().FindIndex(e => e.Name.Equals(name));
         }
 
-        public void SaveChanges()
+            public void SaveChanges()
         {
              dataManager.SerializeFiles(listOfFeeds);
         }

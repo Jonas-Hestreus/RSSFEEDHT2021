@@ -123,17 +123,20 @@ namespace PL
             FillDataGrid();
         }
 
-        private void sortBoyCategory(string category)
+        private void sortByCategory(string category)
         {
             dataGridView1.Rows.Clear();
             List<Feed> feeds = feedController.getAllFeeds();
-            foreach (var feed in feeds)
+
+            var feedsQuery = from feed in feeds
+                             where feed.Category.Contains(category)
+                             select feed.Name;
+
+            foreach (var item in feedsQuery)
             {
-                if (feed.Category.Equals(category))
-                {
-                    string[] rowOfFeeds = { feed.Episodes.Count.ToString(), feed.Name, feed.Freq, feed.Category };
-                    dataGridView1.Rows.Add(rowOfFeeds);
-                }
+                int index = feedController.getIndexByNam(item);
+                string[] rowOfFeeds = { feeds[index].Episodes.Count.ToString(), feeds[index].Name, feeds[index].Freq, feeds[index].Category };
+                dataGridView1.Rows.Add(rowOfFeeds);
             }
 
         }
@@ -308,7 +311,7 @@ namespace PL
         {
             try
             {
-                sortBoyCategory(categoryBox.SelectedItem.ToString());
+                sortByCategory(categoryBox.SelectedItem.ToString());
             }
             catch (NullReferenceException)
             {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DAL;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BL.Controllers
 {
@@ -35,7 +36,7 @@ namespace BL.Controllers
                         if (validator.TextEmpty(pName))
                         {
                             if (nameIsUnique(pName))
-                            {
+                            {   
                                 List<Episode> episodes = await feedRepository.getEpisodes(pUrl);
                                 Feed newFeed = new Feed(pName, pUrl, pCategory, episodes, fReq, nextUpdate);
                                 feedRepository.Create(newFeed);
@@ -131,13 +132,15 @@ namespace BL.Controllers
         public Boolean nameIsUnique(string name)
         {
             Boolean nomatch = true;
-            foreach (var item in getAllFeeds())
+
+
+            List<Feed> feeds = getAllFeeds();
+            var feedsQuery = from feed in feeds
+                             where feed.Name.Contains(name)
+                             select feed.Name;
+            if (feedsQuery.Count() > 0)
             {
-                if (item.Name.Equals(name))
-                {
-                    nomatch = false;
-                    break;
-                }
+                nomatch = false;
             }
             return nomatch;
         }
